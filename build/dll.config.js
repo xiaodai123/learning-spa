@@ -7,17 +7,17 @@ const { getPath } = require('./config/utils');
 const vendors = ['vue', 'vue-router', 'axios', 'babel-polyfill'];
 module.exports = {
     entry: {
-        'dll': vendors,
+        'dll': vendors
     },
     output: {
         filename: '[name].[hash].js',
         path: getPath('src/static'),
-        library: '__[name]__lib',
+        library: '__[name]__lib'
     },
     resolve: {
         extensions: ['.js', '.vue', '.scss', '.less', '.json', '.json5'],
         alias: {
-            'vue$': 'vue/dist/vue.common.js',
+            'vue$': 'vue/dist/vue.common.js'
         }
     },
     plugins: [

@@ -1,9 +1,9 @@
 
 const config = require('./index');
-const public = require('./public');
-const postcssConfig = require('./postcss');
+const publicjs = require('./public');
+// const postcssConfig = require('./postcss');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const isProd = public.isProd;
+const isProd = publicjs.isProd;
 const sourceMapEnabled = isProd ? config.prod.productionSourceMap : config.dev.cssSourceMap;
 
 let cssLang = [{
@@ -22,10 +22,10 @@ function genloader(name) {
         loader: name + '-loader',
         options: {
             sourceMap: sourceMapEnabled,
-            modules: false,
-        },
+            modules: false
+        }
     }
-    if(name === 'scss'){
+    if (name === 'scss') {
         loader.options.indentedSyntax = true;
     }
     return loader;
@@ -42,14 +42,14 @@ function genCssLoader(lang) {
         loaders.push(genloader(lang.name));
     }
     if (isProd) {
-        //生产环境需要提取css
+        // 生产环境需要提取css
         loaders = ExtractTextPlugin.extract({
             fallback: 'style-loader',
-            use: loaders,
+            use: loaders
         });
     } else {
-        //开发环境需要vue-style-loader将css提取到页面头部
-        //实现开发环境热加载
+        // 开发环境需要vue-style-loader将css提取到页面头部
+        // 实现开发环境热加载
         loaders.unshift('vue-style-loader');
     }
     return loaders;
@@ -60,7 +60,7 @@ function styleLoaders() {
     cssLang.forEach(lang => {
         output.push({
             test: lang.reg,
-            use: genCssLoader(lang),
+            use: genCssLoader(lang)
         })
     });
     return output;

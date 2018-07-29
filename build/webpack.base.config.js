@@ -5,7 +5,7 @@ const webpack = require('webpack');
 const { getLatestDllFile, getPath, createLintingRule } = require('./config/utils');
 const vueLoader = require('./config/vue.loader');
 const jsLoader = require('./config/js.loader');
-const public = require('./config/public');
+const publicjs = require('./config/public');
 const config = require('./config');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -15,9 +15,7 @@ const HappyPack = require('happypack');
 // const outputPath = public.isProd ? public.outputPath.prod : public.outputPath.dev;
 const baseConfig = {
     entry: {
-        test: getPath('./src/pages/test.js'),
-        pageA: getPath('./src/pages/pageA.js'),
-        pageB: getPath('./src/pages/pageB.js'),
+        test: getPath('./src/pages/test.js')
         // vendor: [ 'vue', 'vue-router', 'axios', 'babel-polyfill' ]//使用dll
     },
     output: {
@@ -37,22 +35,22 @@ const baseConfig = {
             ...(config.build.useEslint ? [createLintingRule()] : []),
             {
                 test: /\.(js|jsx)$/,
-                //, utils.resolve('node_modules/webpack-dev-server/client')使用node启动
+                // , utils.resolve('node_modules/webpack-dev-server/client')使用node启动
                 exclude: [getPath('./src/static')],
-                include: [getPath('./src'),getPath('./node_modules/vux/src')],
-                use: ['happypack/loader?id=babel'],
+                include: [getPath('./src'), getPath('./node_modules/vux/src')],
+                use: ['happypack/loader?id=babel']
             },
             {
                 test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
                 loader: 'url-loader',
                 options: {
                     limit: 1000,
-                    name: 'img/' + public.mediaName,
+                    name: 'img/' + publicjs.mediaName
                 }
             },
             {
                 test: /\.vue$/,
-                use: ['happypack/loader?id=vue'],
+                use: ['happypack/loader?id=vue']
                 // loader: vueLoader(),
             },
             {
@@ -68,8 +66,8 @@ const baseConfig = {
             },
             {
                 test: /\.json5$/,
-                loader: 'json5-loader',
-            },
+                loader: 'json5-loader'
+            }
             // 无需手动添加
             // {
             //     test: /\.json$/,
@@ -77,20 +75,20 @@ const baseConfig = {
             // }
         ]
     },
-    //其他解决方案
+    // 其他解决方案
     resolve: {
-        //require 文件时可省略的后缀
+        // require 文件时可省略的后缀
         extensions: [ '.js', '.vue', '.scss', '.css', '.json', '.json5' ],
-        //模块别名定义
+        // 模块别名定义
         alias: {
             '~comp': getPath('./src/components'),
             '~compCss': getPath('./src/assets/css'),
             '~compJs': getPath('./src/assets/js'),
-            'vue$': 'vue/dist/vue.common.js',//vue2在npm安装时的规定
+            'vue$': 'vue/dist/vue.common.js'// vue2在npm安装时的规定
         }
     },
     plugins: [
-        //让无牵无挂的模块在对应的入口文件提升作用域
+        // 让无牵无挂的模块在对应的入口文件提升作用域
         new webpack.optimize.ModuleConcatenationPlugin(),
         /**
          * 1、分离业务代码和第三方的代码：之所以将业务代码和第三方代码分离出来，是因为业务代码更新频率高，而第三方代码更新迭代速度慢，所以我们将第三方代码(库，框架)进行抽离，这样可以充分利用浏览器的缓存来加载第三方库。
@@ -107,19 +105,18 @@ const baseConfig = {
          * 在这些入口文件中，找到那些引用两次的模块（如：utilB），帮我抽离成一个叫
          * vendor文件，此时那部分初始化工作的代码会被抽离到vendor文件中
          */
-        
         new webpack.optimize.CommonsChunkPlugin({
             name: 'common',
-            minChunks: 2,
+            minChunks: 2
         }),
-        //提取每个页面的axios
+        // 提取每个页面的axios
         new webpack.optimize.CommonsChunkPlugin({
             async: 'common-in-lazy',
             minChunks: ({ resource } = {}) => (
                 resource &&
                 resource.includes('node_modules') &&
                 /axios/.test(resource)
-            ),
+            )
         }),
         /**
          * 在所有的 async chunk ( Emoji.chunk.js 和 Photos.chunk.js ) 中找到引用 2 次以上的模块，
@@ -128,10 +125,10 @@ const baseConfig = {
         new webpack.optimize.CommonsChunkPlugin({
             async: 'used-twice',
             minChunks: (module, count) => (
-              count >= 2
-            ),
+                count >= 2
+            )
         }),
-        //提取第三方代码、使用了dll
+        // 提取第三方代码、使用了dll
         // new webpack.optimize.CommonsChunkPlugin({
         //     name: 'vendor',
         //     // minChunks: Infinity,
@@ -154,70 +151,70 @@ const baseConfig = {
          * pageX.xxx.js//业务代码
          * 当pageB需要utilC的时候异步加载utilC
          */
-        //放在其他CommonsChunkPlugin之后
+        // 放在其他CommonsChunkPlugin之后
         new webpack.optimize.CommonsChunkPlugin({
             name: 'runtime',
             // name: 'minfest',
             // chunks: ['vendor'],
-            minChunks: Infinity//可写可不写
+            minChunks: Infinity// 可写可不写
         }),
         new webpack.ProvidePlugin({
             $: 'jquery',
             jQuery: 'jquery'
         }),
-        //复制文件
+        // 复制文件
         new CopyWebpackPlugin([
             {
                 from: 'src/lib',
-                to: 'lib',
+                to: 'lib'
             }
         ]),
-        //复制文件
+        // 复制文件
         new CopyWebpackPlugin([
             {
                 from: 'src/static',
-                to: 'static',
+                to: 'static'
             }
         ]),
         new HtmlWebpackPlugin({
             template: './src/app/test.html',
             /**
-             * true || 'head' || 'body' || false 
-             * Inject all assets into the given 
-             * template or templateContent. When 
-             * passing true or 'body' all javascript 
+             * true || 'head' || 'body' || false
+             * Inject all assets into the given
+             * template or templateContent. When
+             * passing true or 'body' all javascript
              * resources will be placed at the bottom
-             *  of the body element. 'head' will 
+             *  of the body element. 'head' will
              * place the scripts in the head element
              */
             inject: true,
-            filename: 'index.html',
+            filename: 'index.html'
             // vendorJsName: '/static/dll.js',//???
         }),
         new HtmlWebpackIncludeAssetsPlugin({
-            assets: getLatestDllFile("static/dll.js"),
-            append: false,//指定资产是否应在任何现有资产之前添加（false），或在其之后追加（true）。
+            assets: getLatestDllFile('static/dll.js'),
+            append: false// 指定资产是否应在任何现有资产之前添加（false），或在其之后追加（true）。
         }),
         /**
          * 第三点就是使用 happypack 开启多核构建，webpack 之所以慢，
          * 是因为由于有大量文件需要解析和处理，构建是文件读写和计算密集型的操作，
-         * 特别是当文件数量变多后，webpack 构建慢的问题会显得严重。 
+         * 特别是当文件数量变多后，webpack 构建慢的问题会显得严重。
          * 也就是说 Webpack 需要处理的任务需要一件件挨着做，不能多个事情一起做。
          * 在整个 webpack 构建流程中，最耗时的流程可能就是 loader 对文件的转换操作了，
-         * 因为要转换的文件数据巨多，而且这些转换操作都只能一个个挨着处理。 Happypack 
+         * 因为要转换的文件数据巨多，而且这些转换操作都只能一个个挨着处理。 Happypack
          * 的核心原理就是把这部分任务分解到多个进程去并行处理，从而减少了总的构建时间。
          * 需要配置哪些 loader 使用 Happypack 就要改写那些配置，比如你想要修改 babel 为多核编译:
-         */ 
+         */
         new HappyPack({
             id: 'babel',
             // threads: 4,
-            loaders: [jsLoader()],
+            loaders: [jsLoader()]
         }),
-        //vux不支持HappyPack所以没有配置vux,不支持不使用postcss配置文件
+        // vux不支持HappyPack所以没有配置vux,不支持不使用postcss配置文件
         new HappyPack({
             id: 'vue',
             // threads: 4,
-            loaders: [vueLoader()],
+            loaders: [vueLoader()]
         }),
         /**
          * DllPlugin 本身有几个缺点：
@@ -230,11 +227,11 @@ const baseConfig = {
          * 像 antd、lodash 这种功能性组件库，可以通过 tree shaking 来进行消除，只保留有用的代码，千万不要直接打到 vendor 第三方库里，不然你将大量执行无用的代码。
          */
         new webpack.DllReferencePlugin({
-            manifest: require('./../src/static/dll.mainfest.json'),
+            manifest: require('./../src/static/dll.mainfest.json')
             // name: require('./../static/dll.mainfest.json').name,
             // content: require('./../static/dll.mainfest.json').content,
         })
-    ],
+    ]
 }
 
 // baseConfig.module.rules.concat(styleLoaders());
