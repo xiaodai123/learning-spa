@@ -1,16 +1,35 @@
 <template>
-  <div data-index-box>
-      这是{{page}}页面
-      <div class="div3"></div>
-  </div>
+    <div data-index-box>
+        这是{{page}}页面
+        <div class="div3"></div>
+        <br>
+        token2: {{token2}}
+        <br>
+        <el-button type="primary" @click="changeToken">改变Token</el-button>
+        <br>
+    </div>
 </template>
 <script>
+import { Button } from 'element-ui';
+import { mapGetters } from 'vuex';
+import Vue from 'vue';
+Vue.use(Button);
 export default {
-  data(){
-      return {
-          page: 'index'
-      }
-  }
+    data(){
+        return {
+            page: 'index'
+        }
+    },
+    methods: {
+        changeToken() {
+            this.$store.commit('auth/setToken', 'qwe');
+        }
+    },
+    computed: {
+        ...mapGetters({
+            token2: 'auth/token1'
+        })
+    }
 }
 </script>
 <style lang="sass">
