@@ -7,7 +7,7 @@
     <title>Login</title>
 </head>
 <body>
-    <div id="login" login-div>
+    <div id="login" login-div v-if="isShow">
         <div class="login-header">系统登录</div>
         <div class="login-content">
             <el-form :model="loginFrom">
@@ -23,15 +23,15 @@
                 <el-row :gutter="8">
                     <el-col :span="24">
                         <el-form-item label="">
-                            <el-input v-model="loginFrom.password" placeholder="请输入密码">
-                                    <i slot="prefix" class="el-input__icon el-icon-spa-lock"></i>
+                            <el-input type="password" v-model="loginFrom.password" placeholder="请输入密码">
+                                <i slot="prefix" class="el-input__icon el-icon-spa-lock"></i>
                             </el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row :gutter="8">
                     <el-col :span="24">
-                        <el-button type="danger">登录</el-button>
+                        <el-button @click="toLogin" type="danger">登录</el-button>
                     </el-col>
                 </el-row>
             </el-form>

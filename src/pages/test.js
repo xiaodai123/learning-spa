@@ -14,6 +14,22 @@ const router = new VueRouter({
     routes
 });
 
+router.beforeEach((to, from, next) => {
+    if (sessionStorage.getItem('x-token')) {
+        if (store.getters['auth/getUserInfo']) {
+            let userInfo = {
+                userName: 'daizhi',
+                password: '123123'
+            };
+            store.commit('auth/setUserInfo', userInfo);
+        }
+        next();
+    } else {
+        next(false);
+        window.location.href = 'login.html';
+    }
+})
+
 let vm = new Vue({
     el: '#vm',
     data: {
@@ -30,7 +46,8 @@ let vm = new Vue({
             return store.state.auth.token;
         },
         ...mapState({
-            token1: state => state.auth.token
+            token1: state => state.auth.token,
+            userInfo: state => state.auth.userInfo
         })
     },
     mounted() {
