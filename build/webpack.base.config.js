@@ -2,7 +2,7 @@
  * 基础配置
  */
 const webpack = require('webpack');
-const { getLatestDllFile, getPath, createLintingRule } = require('./config/utils');
+const { getLatestDllFile, getPath, createLintingRule, createEntry } = require('./config/utils');
 const vueLoader = require('./config/vue.loader');
 const jsLoader = require('./config/js.loader');
 const publicjs = require('./config/public');
@@ -12,12 +12,27 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin')
 const HappyPack = require('happypack');
 
+const filePath = config.build.filePath;
+
+function createHtmlWebpackPlugins(filePath) {
+    let htmlWebpackPlugins = [];
+    Object.keys(filePath).forEach(key => {
+        htmlWebpackPlugins.push(new HtmlWebpackPlugin({
+            template: filePath[key].html,
+            filename: key + '.html',
+            chunks: ['runtime', 'common', key],
+            inject: true
+        }))
+    });
+    return htmlWebpackPlugins;
+}
 // const outputPath = public.isProd ? public.outputPath.prod : public.outputPath.dev;
 const baseConfig = {
-    entry: {
-        test: getPath('./src/pages/test.js')
-        // vendor: [ 'vue', 'vue-router', 'axios', 'babel-polyfill' ]//使用dll
-    },
+    // entry: {
+    //     test: getPath('./src/pages/test.js')
+    //     // vendor: [ 'vue', 'vue-router', 'axios', 'babel-polyfill' ]//使用dll
+    // },
+    entry: createEntry(filePath),
     output: {
         /**
          * chunkhash变化的因素
@@ -177,21 +192,22 @@ const baseConfig = {
                 to: 'static'
             }
         ]),
-        new HtmlWebpackPlugin({
-            template: './src/app/test.html',
-            /**
-             * true || 'head' || 'body' || false
-             * Inject all assets into the given
-             * template or templateContent. When
-             * passing true or 'body' all javascript
-             * resources will be placed at the bottom
-             *  of the body element. 'head' will
-             * place the scripts in the head element
-             */
-            inject: true,
-            filename: 'index.html'
-            // vendorJsName: '/static/dll.js',//???
-        }),
+        ...createHtmlWebpackPlugins(filePath),
+        // new HtmlWebpackPlugin({
+        //     template: './src/app/test.html',
+        //     /**
+        //      * true || 'head' || 'body' || false
+        //      * Inject all assets into the given
+        //      * template or templateContent. When
+        //      * passing true or 'body' all javascript
+        //      * resources will be placed at the bottom
+        //      *  of the body element. 'head' will
+        //      * place the scripts in the head element
+        //      */
+        //     inject: true,
+        //     filename: 'index.html'
+        //     // vendorJsName: '/static/dll.js',//???
+        // }),
         new HtmlWebpackIncludeAssetsPlugin({
             assets: getLatestDllFile('static/dll.js'),
             append: false// 指定资产是否应在任何现有资产之前添加（false），或在其之后追加（true）。

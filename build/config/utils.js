@@ -29,8 +29,16 @@ function createLintingRule() {
         }
     }
 }
+function createEntry(filePath) {
+    let entry = {};
+    Object.keys(filePath).forEach(key => {
+        entry[key] = filePath[key].js;
+    });
+    return entry;
+}
 module.exports = {
     getPath,
     getLatestDllFile,
-    createLintingRule
+    createLintingRule,
+    createEntry
 }

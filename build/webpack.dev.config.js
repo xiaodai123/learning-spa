@@ -45,7 +45,7 @@ module.exports = merge(baseConfig, {
             'process.env.NODE_ENV': '"development"'
         }),
         new OpenBrowserPlugin({
-            url: `http://${config.dev.host}:${config.dev.port}${config.dev.publicPath}`
+            url: `http://${config.dev.host}:${config.dev.port}${config.dev.publicPath}login.html`
         })
     ],
     // 配置webpack-dev-server,node启动时不需要

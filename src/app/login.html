@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+</head>
+<body>
+    <div id="login" login-div>
+        <div class="login-header">系统登录</div>
+        <div class="login-content">
+            <el-form :model="loginFrom">
+                <el-row :gutter="8">
+                    <el-col :span="24">
+                        <el-form-item label="">
+                            <el-input v-model="loginFrom.userName" placeholder="请输入用户名">
+                                <i slot="prefix" class="el-input__icon el-icon-spa-people"></i>
+                            </el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row :gutter="8">
+                    <el-col :span="24">
+                        <el-form-item label="">
+                            <el-input v-model="loginFrom.password" placeholder="请输入密码">
+                                    <i slot="prefix" class="el-input__icon el-icon-spa-lock"></i>
+                            </el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row :gutter="8">
+                    <el-col :span="24">
+                        <el-button type="danger">登录</el-button>
+                    </el-col>
+                </el-row>
+            </el-form>
+        </div>
+    </div>
+</body>
+</html>

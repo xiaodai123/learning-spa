@@ -3,14 +3,12 @@ require('../assets/css/testscss');
 
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import VueResource from 'vue-resource';
 import store from '../store';
 import routes from '../router/index';
 import test1 from '~compJs/async1';
 import { mapState } from 'vuex';
 
 Vue.use(VueRouter);
-Vue.use(VueResource);
 // 创建路由
 const router = new VueRouter({
     routes
