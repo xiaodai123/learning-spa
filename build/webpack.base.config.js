@@ -21,6 +21,7 @@ function createHtmlWebpackPlugins(filePath) {
             template: filePath[key].html,
             filename: key + '.html',
             chunks: ['runtime', 'common', key],
+            favicon: getPath('favicon.ico'),
             inject: true
         }))
     });

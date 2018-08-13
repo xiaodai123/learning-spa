@@ -9,6 +9,10 @@ div[login-div] {
         font-size: 28px;
         text-align: center;
         margin-bottom: 20px;
+        display: flex;
+        .login-header-text {
+            flex: 1;
+        }
     }
     .login-content {
         .el-form {

@@ -4,6 +4,7 @@ require('../assets/css/testscss');
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import store from '../store';
+import i18n from './../i18n';
 import routes from '../router/index';
 import test1 from '~compJs/async1';
 import { mapState } from 'vuex';
@@ -16,7 +17,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
     if (sessionStorage.getItem('x-token')) {
-        if (store.getters['auth/getUserInfo']) {
+        if (!store.getters['auth/getUserInfo']) {
             let userInfo = {
                 userName: 'daizhi',
                 password: '123123'
@@ -54,5 +55,6 @@ let vm = new Vue({
         this.name = 'firstTest';
     },
     router,
-    store
+    store,
+    i18n
 });

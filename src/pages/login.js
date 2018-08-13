@@ -2,10 +2,12 @@ require('../assets/icon/iconfont.css');
 require('../assets/css/login');
 
 import Vue from 'vue';
+import i18n from './../i18n';
 import store from '../store';
 import { Input, Button, FormItem, Form, Row, Col } from 'element-ui';
 // import $v from '../assets/js/ajax';
 import { token } from '../assets/js/util';
+import LangSelect from '~comp/common/LangSelect';
 
 Vue.use(Input);
 Vue.use(Button);
@@ -18,13 +20,14 @@ let login = new Vue({
     el: '#login',
     data: {
         loginFrom: {
-            userName: '',
-            password: ''
-        },
-        isShow: false
+            userName: 'daizhi',
+            password: '111111'
+        }
     },
     mounted() {
-        this.isShow = true;
+    },
+    components: {
+        LangSelect
     },
     methods: {
         toLogin() {
@@ -38,5 +41,6 @@ let login = new Vue({
             // });
         }
     },
+    i18n,
     store
 })

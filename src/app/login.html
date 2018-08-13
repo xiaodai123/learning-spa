@@ -7,8 +7,11 @@
     <title>Login</title>
 </head>
 <body>
-    <div id="login" login-div v-if="isShow">
-        <div class="login-header">系统登录</div>
+    <div id="login" login-div>
+        <div class="login-header">
+            <div class="login-header-text">系统登录</div>
+            <lang-select></lang-select>
+        </div>
         <div class="login-content">
             <el-form :model="loginFrom">
                 <el-row :gutter="8">

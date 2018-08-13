@@ -10,9 +10,10 @@ const routes = [
     // },
     {
         path: '/index',
-        component: () =>
-            import ( /* webpackChunkName: "index" */ '~comp/index')
+        name: '测试',
+        meta: { role: ['admin'] },
+        component: () => import ( /* webpackChunkName: "index" */ '~comp/index')
     }
 ]
 
-module.exports = routes;
+export default routes;
