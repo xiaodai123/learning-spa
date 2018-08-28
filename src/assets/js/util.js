@@ -6,6 +6,12 @@ class token {
         sessionStorage.setItem('x-token', token);
     }
 }
+class validate {
+    static isvalidUsername(str) {
+        const validMap = ['daizhi', 'editor'];
+        return validMap.indexOf(str.trim()) >= 0;
+    }
+}
 // class session {
 //     static getSessionId() {
 //         return sessionStorage.getItem('sessionId');
@@ -16,5 +22,6 @@ class token {
 // }
 
 export {
-    token
+    token,
+    validate
 }
