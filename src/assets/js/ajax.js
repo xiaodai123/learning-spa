@@ -32,20 +32,20 @@ service.interceptors.request.use(config => {
 });
 
 // response拦截器
-service.interceptors.response.use(response => {
-    const res = response.data;
-    if (res.code !== 20000) {
-        Message.error({
-            message: res.message,
-            duration: TIPS_TIME
-        });
-        // 如果登录过期
-        // sessionStorage.clear();
-        return Promise.reject(res.message);
-    } else {
-        return response;
-    }
-});
+// service.interceptors.response.use(response => {
+//     const res = response.data;
+//     if (res.code !== 20000) {
+//         Message.error({
+//             message: res.message,
+//             duration: TIPS_TIME
+//         });
+//         // 如果登录过期
+//         // sessionStorage.clear();
+//         return Promise.reject(res.message);
+//     } else {
+//         return response;
+//     }
+// });
 /**
  * 封装axios
  */

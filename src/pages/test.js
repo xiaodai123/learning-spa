@@ -7,7 +7,10 @@ import store from '../store';
 import i18n from './../i18n';
 import routes from '../router/index';
 import test1 from '~compJs/async1';
-import { mapState } from 'vuex';
+import { token } from '~compJs/util';
+import $v from '~compJs/ajax';
+import './../mock';
+import { mapGetters } from 'vuex';
 
 Vue.use(VueRouter);
 // 创建路由
@@ -16,14 +19,18 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    if (sessionStorage.getItem('x-token')) {
-        if (!store.getters['auth/getUserInfo']) {
-            let userInfo = {
-                userName: 'daizhi',
-                password: '123123'
-            };
+    let tokenTemp = token.getToken('x-token');
+    if (tokenTemp) {
+        $v.get('/cq-ocms/user/info', {token: tokenTemp}, data => {
+            let userInfo = data.data;
             store.commit('auth/setUserInfo', userInfo);
-        }
+            store.dispatch('auth/setToken', tokenTemp);
+            next();
+        }, error => {
+            console.log(error);
+            next(false);
+            window.location.href = 'login.html';
+        });
         next();
     } else {
         next(false);
@@ -43,12 +50,12 @@ let vm = new Vue({
         }
     },
     computed: {
-        token () {
-            return store.state.auth.token;
-        },
-        ...mapState({
-            token1: state => state.auth.token,
-            userInfo: state => state.auth.userInfo
+        // ...mapState({
+        //     userInfo: state => state.auth.userInfo
+        // })getUserInfo
+        ...mapGetters({
+            userInfo: 'getUserInfo',
+            token: 'token'
         })
     },
     mounted() {

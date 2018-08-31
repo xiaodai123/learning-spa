@@ -1,23 +1,20 @@
 const auth = {
     namespaced: true,
     state: {
-        token: '1234321',
-        uerInfo: null
+        token: '',
+        userInfo: {}
     },
     mutations: {
         setToken(state, token) {
             state.token = token;
         },
         setUserInfo(state, userInfo) {
-            // Object.keys(userInfo).forEach(key => {
-            //     state.userInfo[key] = userInfo[key];
-            // })
             state.userInfo = userInfo;
         }
     },
-    action: {
-        setToken({ commit }) {
-            commit('setToken');
+    actions: {
+        setToken({commit}, token) {
+            commit('setToken', token);
         }
     }
 }

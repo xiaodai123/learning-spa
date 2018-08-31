@@ -3,8 +3,6 @@
         这是{{page}}页面
         <div class="div3"></div>
         <br>
-        token2: {{token2}}
-        <br>
         <el-button type="primary" @click="changeToken">改变Token</el-button>
         <br>
     </div>
@@ -26,9 +24,9 @@ export default {
         }
     },
     computed: {
-        ...mapGetters({
-            token2: 'auth/token1'
-        })
+        // ...mapGetters({
+        //     token2: 'auth/token1'
+        // })
     }
 }
 </script>
