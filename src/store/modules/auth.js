@@ -2,19 +2,29 @@ const auth = {
     namespaced: true,
     state: {
         token: '',
-        userInfo: {}
+        userInfo: {},
+        roles: []
     },
     mutations: {
-        setToken(state, token) {
+        SET_TOKEN(state, token) {
             state.token = token;
         },
-        setUserInfo(state, userInfo) {
+        SET_USERINFO(state, userInfo) {
             state.userInfo = userInfo;
+        },
+        SET_ROLES(state, roles) {
+            state.roles = roles;
         }
     },
     actions: {
         setToken({commit}, token) {
-            commit('setToken', token);
+            commit('SET_TOKEN', token);
+        },
+        setUserInfo({commit}, userInfo) {
+            commit('SET_USERINFO', userInfo);
+        },
+        setRoles({commit}, roles) {
+            commit('SET_ROLES', roles);
         }
     }
 }

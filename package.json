@@ -88,6 +88,7 @@
     "babel-preset-latest": "^6.24.1",
     "glob": "^7.1.2",
     "mockjs": "^1.0.1-beta3",
+    "nprogress": "^0.2.0",
     "open-browser-webpack-plugin": "0.0.5",
     "webpack-cli": "^3.0.7",
     "webpack-dev-server": "^2.11.2"

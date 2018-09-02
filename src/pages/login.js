@@ -8,6 +8,7 @@ import './../mock';
 import { Input, Button, FormItem, Form, Row, Col } from 'element-ui';
 import $v from '~compJs/ajax';
 import { token, validate } from '~compJs/util';
+import { TO_URL } from '~compJs/public';
 import LangSelect from '~comp/common/LangSelect';
 import VueRouter from 'vue-router';
 
@@ -69,7 +70,7 @@ let login = new Vue({
             this.$refs.loginForm.validate(valid => {
                 if (valid) {
                     this.loading = true;
-                    $v.post('/cq-ocms/login', this.loginFrom, data => {
+                    $v.post(TO_URL + '/login', this.loginFrom, data => {
                         token.setToken(data.data.token);
                         this.loading = false;
                         window.location.href = 'test.html';

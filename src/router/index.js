@@ -13,7 +13,18 @@ const routes = [
         name: '测试',
         meta: { role: ['admin'] },
         component: () => import ( /* webpackChunkName: "index" */ '~comp/index')
+    },
+    {
+        path: '/401',
+        component: () => import ( /* webpackChunkName: "401" */ '~comp/common/errorPage/401'),
+        hidden: true
+    },
+    {
+        path: '/404',
+        component: () => import ( /* webpackChunkName: "401" */ '~comp/common/errorPage/404'),
+        hidden: true
     }
 ]
+
 
 export default routes;

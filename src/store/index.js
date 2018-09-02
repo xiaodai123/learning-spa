@@ -1,8 +1,9 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import auth from './modules/auth';
-import getters from './getters';
 import publics from './modules/publics';
+import permission from './modules/permission';
+import getters from './getters';
 
 Vue.use(Vuex);
 
@@ -13,7 +14,8 @@ const store = new Vuex.Store({
     getters,
     modules: {
         publics,
-        auth
+        auth,
+        permission
     }
 })
 export default store;

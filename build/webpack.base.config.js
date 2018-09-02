@@ -100,6 +100,7 @@ const baseConfig = {
             '~comp': getPath('./src/components'),
             '~compCss': getPath('./src/assets/css'),
             '~compJs': getPath('./src/assets/js'),
+            '~compImg': getPath('./src/assets/img'),
             '~vuex': getPath('./src/store'),
             'vue$': 'vue/dist/vue.common.js'// vue2在npm安装时的规定
         }
