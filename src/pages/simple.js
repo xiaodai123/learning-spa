@@ -1,4 +1,5 @@
-// require('~compCss/simple');
+require('../assets/icon/iconfont.css');
+require('~compCss/index');
 
 import Vue from 'vue';
 import store from '../store';

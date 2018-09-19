@@ -1,5 +1,7 @@
 const TO_URL = '/cq-ocms';
+const FONT_IMG = 'el-icon-spa-';
 
-module.export = {
-    TO_URL
+export {
+    TO_URL,
+    FONT_IMG
 }

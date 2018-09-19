@@ -1,8 +1,36 @@
 <template>
-    <div data-sidebar-item v-if="!item"></div>
+    <div data-sidebar-item v-if="!item.hidden&&item.children">
+        <router-link v-if="hasOneShowingChild(item.children) && !onlyOneChild.children && !item.alwaysShow" :to="resolvePath(onlyOneChild.path)">
+            <el-menu-item :index="resolvePath(onlyOneChild.path)" :class="{'submenu-title-noDropdown':isNest}">
+                <FontIcon v-if="onlyOneChild.meta && onlyOneChild.meta.icon" :icon="onlyOneChild.meta.icon"/>
+                <span v-if="onlyOneChild.meta && onlyOneChild.meta.title" slot="title">{{onlyOneChild.meta.title}}</span>
+            </el-menu-item>
+        </router-link>
+        <el-submenu v-else :index="item.name||item.path">
+            <template slot="title">
+                <FontIcon v-if="item.meta && item.meta.icon" :icon="item.meta.icon"/>
+                <span v-if="item.meta && item.meta.title" slot="title">{{item.meta.title}}</span>
+            </template>
+            <template v-for="child in item.children" v-if="!child.hidden">
+                <SidebarItem :is-nest="true" class="nest-menu" v-if="child.children&&child.children.length>0" :item="child" :key="child.path" :base-path="resolvePath(child.path)"></SidebarItem>
+                <router-link v-else :to="resolvePath(child.path)" :key="child.name">
+                    <el-menu-item :index="resolvePath(child.path)">
+                        <FontIcon v-if="child.meta && child.meta.icon" :icon="child.meta.icon"/>
+                        <span v-if="child.meta&&child.meta.title" slot="title">{{child.meta.title}}</span>
+                    </el-menu-item>
+                </router-link>
+            </template>
+        </el-submenu>
+    </div>
 </template>
 <script>
 import path from 'path';
+import Vue from 'vue';
+import FontIcon from '~comp/common/FontIcon';
+import SidebarItem from './SidebarItem';
+import { MenuItem, Submenu } from 'element-ui';
+Vue.use(MenuItem);
+Vue.use(Submenu);
 export default {
     name: 'SidebarItem',
     props: {
@@ -25,6 +53,10 @@ export default {
             onlyOneChild: null
         }
     },
+    components: {
+        FontIcon,
+        SidebarItem
+    },
     methods: {
         hasOneShowingChild(children) {
             const showingChildren = children.filter(item => {
@@ -46,4 +78,15 @@ export default {
     }
 }
 </script>
+<style lang="sass">
+div[data-sidebar-item] {
+    .submenu-title-noDropdown {
+        padding-left: 10px !important;
+        position: relative;
+        .el-tooltip {
+            padding: 0 10px !important;
+        }
+    }
+}
+</style>
 
