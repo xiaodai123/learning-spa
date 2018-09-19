@@ -34,7 +34,7 @@ module.exports = {
         bundleAnalyzerReport: true
     },
     build: {
-        useEslint: true, // 看不到效果
+        useEslint: true,
         filePath: {
             test: {
                 js: './src/pages/test.js',
@@ -44,6 +44,11 @@ module.exports = {
             login: {
                 js: './src/pages/login.js',
                 html: './src/app/login.html'
+                // css: './src/assets/css/login.scss'
+            },
+            simple: {
+                js: './src/pages/simple.js',
+                html: './src/app/simple.html'
                 // css: './src/assets/css/login.scss'
             }
         }

@@ -3,6 +3,8 @@ const getters = {
     token: state => state.auth.token,
     getUserInfo: state => state.auth.userInfo,
     language: state => state.publics.language,
+    sidebar: state => state.publics.sidebar,
+    permissionRouters: state => state.permission.routers,
     roles: state => state.auth.roles,
     addRouters: state => state.permission.addRouters
 }

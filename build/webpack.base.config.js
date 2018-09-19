@@ -18,6 +18,7 @@ function createHtmlWebpackPlugins(filePath) {
     let htmlWebpackPlugins = [];
     Object.keys(filePath).forEach(key => {
         htmlWebpackPlugins.push(new HtmlWebpackPlugin({
+            title: 'Pretty',
             template: filePath[key].html,
             filename: key + '.html',
             chunks: ['runtime', 'common', key],

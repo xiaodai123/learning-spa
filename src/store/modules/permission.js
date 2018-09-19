@@ -32,14 +32,15 @@ function fileAsyncRouter(asyncRouterMap, roles) {
 }
 
 const permission = {
+    namespaced: true,
     state: {
-        routes: constantRouterMap,
+        routers: constantRouterMap,
         addRouters: []
     },
     mutations: {
-        SET_ROUTES: (state, routes) => {
-            state.addRouters = routes;
-            state.routes = constantRouterMap.concat(routes);
+        SET_ROUTERS: (state, routers) => {
+            state.addRouters = routers;
+            state.routers = constantRouterMap.concat(routers);
         }
     },
     actions: {
@@ -52,11 +53,11 @@ const permission = {
                 } else {
                     accessedRouters = fileAsyncRouter(asyncRouterMap, roles);
                 }
-                commit('SET_ROUTES', accessedRouters);
+                commit('SET_ROUTERS', accessedRouters);
                 resolve();
             })
         }
     }
 }
 
-export default permission;
+export default permission

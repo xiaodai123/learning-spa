@@ -1,5 +1,5 @@
 const TO_URL = '/cq-ocms';
 
-export default {
+module.export = {
     TO_URL
 }

@@ -1,5 +1,4 @@
 import routes from '../../router';
-import store from '../../store';
 import VueRouter from 'vue-router';
 import Vue from 'vue';
 import { Message } from 'element-ui';
@@ -11,12 +10,12 @@ import $v from '~compJs/ajax';
 
 NProgress.configure({ showSpinner: false });
 
-function hasPermission(roles, permissionRoles) {
-    if (roles.indexOf('admin') >= 0) return true;
-    if (!permissionRoles) return true;
-    return roles.some(role => permissionRoles.indexOf(role) >= 0);
-}
-const whiteList = ['/login', '/authredirect'];
+// function hasPermission(roles, permissionRoles) {
+//     if (roles.indexOf('admin') >= 0) return true;
+//     if (!permissionRoles) return true;
+//     return roles.some(role => permissionRoles.indexOf(role) >= 0);
+// }
+// const whiteList = ['/login', '/authredirect'];
 
 Vue.use(VueRouter);
 
@@ -26,7 +25,7 @@ const router = new VueRouter({
     routes
 })
 
-function configRouter(asyncRouterMap) {
+function configRouter(store, asyncRouterMap) {
     router.beforeEach((to, from, next) => {
         NProgress.start();// start progress bar
         let tokenTemp = token.getToken('x-token');
@@ -40,12 +39,12 @@ function configRouter(asyncRouterMap) {
                     if (roles && roles.length > 0) { // 验证返回的roles是否是一个非空数组
                         store.dispatch('auth/setRoles', userInfo.roles);
                     } else {
-                        Message.error('getInfo: roles must be a non-null array !');
+                        Message.error({message: 'getInfo: roles must be a non-null array !'});
                     }
                     // 根据roles权限生成可访问的路由表
                     store.dispatch('permission/generateRoutes', { roles, asyncRouterMap }).then(() => {
                         // 动态添加可访问路由表
-                        router.addRoutes(store.getters.addRoutes);
+                        router.addRoutes(store.getters.addRouters);
                         // hack方法 确保addRoutes已完成 ,set the replace: true so the navugation will not leave a history record
                         next({ ...to, replace: true });
                     });
@@ -56,14 +55,15 @@ function configRouter(asyncRouterMap) {
                     //     window.location.href = whichHtml;// 'simple.html';
                     // }
                 }, error => {
-                    Message.error(error);
+                    Message.error({message: error});
                     next(false);
                     NProgress.done();
                     window.location.href = 'login.html';
                 });
                 next();
             } else {
-                // 
+                // 有角色权限时
+                next();
             }
         } else {
             next(false);

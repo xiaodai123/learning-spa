@@ -20,7 +20,7 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
     let tokenTemp = token.getToken('x-token');
     if (tokenTemp) {
-        window.location.href = 'test.html';
+        window.location.href = 'simple.html';
     } else {
         next();
     }
@@ -73,7 +73,7 @@ let login = new Vue({
                     $v.post(TO_URL + '/login', this.loginFrom, data => {
                         token.setToken(data.data.token);
                         this.loading = false;
-                        window.location.href = 'test.html';
+                        window.location.href = 'simple.html';
                     }, error => {
                         console.log(error);
                         this.loading = false;
