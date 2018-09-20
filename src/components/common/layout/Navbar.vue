@@ -17,7 +17,7 @@
                     <!-- 用户操作 -->
                     <el-dropdown class="for-line" trigger="click">
                         <div style="display:flex;">
-                            <img style="width: 30px;height: 30px;" :src="userJpg" alt="">
+                            <img class="user-img" :src="userJpg" alt="">
                         </div>
                         <el-dropdown-menu slot="dropdown">
                             <router-link to="/">
@@ -117,6 +117,15 @@ div[data-navbar-box] {
                 font-size: 25px!important;
                 line-height: inherit;
                 margin: 0 15px;
+            }
+            .user-img{
+                width: 30px;
+                height: 30px;
+            }
+            .user-img:hover {
+                transform: rotate(666turn);
+                transition-duration: 59s;
+                transition-timing-function: cubic-bezier(.34, 0, .84, 1)
             }
         }
     }
