@@ -49,6 +49,11 @@ export default {
         $route() {
             this.addViewTags();
             this.moveToCurrentTag();
+            if (this.$route.meta.title === '首页') {
+                this.isMain = true;
+            } else {
+                this.isMain = false;
+            }
         },
         visible(value) {
             if (value) {
