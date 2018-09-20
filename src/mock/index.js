@@ -4,7 +4,7 @@ import loginAPI from './login';
 
 // 登录相关
 Mock.mock(/\/login/, 'post', loginAPI.loginByUserName);
-Mock.mock(/\/login\/logout/, 'post', loginAPI.logout);
+Mock.mock(/\/logout/, 'post', loginAPI.logout);
 Mock.mock(/\/user\/info\.*/, 'get', loginAPI.getUserInfo);
 
 

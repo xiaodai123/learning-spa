@@ -1,4 +1,4 @@
-import { param2Obj } from '~compJs/util';
+import { param2Obj, token } from '~compJs/util';
 
 const userMap = {
     admin: {
@@ -28,5 +28,8 @@ export default {
             return false;
         }
     },
-    logout: () => 'success'
+    logout: () => {
+        token.removeToken();
+        return true;
+    }
 }

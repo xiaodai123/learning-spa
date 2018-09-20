@@ -14,6 +14,7 @@ const routes = [
         children: [
             {
                 path: 'index',
+                name: '测试页1-1',
                 component: () => import ( /* webpackChunkName: "test1" */ '~comp/test'),
                 meta: {
                     roles: ['admin', 'editor'],
@@ -23,6 +24,7 @@ const routes = [
             },
             {
                 path: 'test2',
+                name: '测试页1-2',
                 component: () => import ( /* webpackChunkName: "test2" */ '~comp/test2'),
                 meta: {
                     roles: ['admin', 'editor'],
@@ -44,6 +46,7 @@ const routes = [
         children: [
             {
                 path: 'index',
+                name: '测试页3',
                 component: () => import ( /* webpackChunkName: "test1" */ '~comp/test3'),
                 meta: {
                     roles: ['admin', 'editor'],

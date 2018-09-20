@@ -1,9 +1,9 @@
 <template>
     <div data-sidebar-box>
         <el-scrollbar wrapClass="scrollbar-wrapper">
-            <el-menu 
+            <el-menu :class="{'is-collapse':isCollapse}"
                 mode="vertical"
-                :show-timeout="200"
+                menu-trigger="click"
                 :default-active="$route.path"
                 :collapse="isCollapse"
                 background-color="#304156"
@@ -39,6 +39,12 @@ export default {
 }
 </script>
 <style lang="sass">
+.el-menu--vertical {
+    top: 0px!important;
+    .el-menu--popup-right-start {
+        margin-left: 2px;
+    }
+}
 div[data-sidebar-box] {
     //reset element-ui css
     .horizontal-collapse-transition {
@@ -50,26 +56,52 @@ div[data-sidebar-box] {
         .el-scrollbar__view {
             height: 100%;
         }
+        .is-collapse {
+            .el-submenu {
+                overflow: hidden;
+                &>.el-submenu__title {
+                    padding-left: 10px !important;
+                    padding-right: 10px!important;
+                    .el-submenu__icon-arrow {
+                        display: none;
+                    }
+                }
+            }
+            .el-menu-item {
+                &>.el-tooltip {
+                    padding-left: 10px !important;
+                }
+            }
+        }
+        .el-menu--collapse.is-collapse {
+            width: auto;
+            .el-submenu {
+                &>.el-submenu__title {
+                    &>span {
+                        height: 0;
+                        width: 0;
+                        overflow: hidden;
+                        visibility: hidden;
+                        display: inline-block;
+                    }
+                }
+            }
+            .el-submenu [class^=el-icon-] {
+                margin-right: 0px!important;
+            }
+        }
     }
     .is-horizontal {
       display: none;
     }
-    .el-menu {
-      border: none;
-      height: 100%;
-      width: 100% !important;
+    .sidebar-container .nest-menu .el-submenu>.el-submenu__title,
+    .sidebar-container .el-submenu .el-menu-item {
+        min-width: 180px !important;
+        background-color: #1f2d3d!important;
+        &:hover {
+            background-color: #001528!important;
+        }
     }
-}
-.sidebar-container .nest-menu .el-submenu>.el-submenu__title,
-.sidebar-container .el-submenu .el-menu-item {
-    min-width: 180px !important;
-    background-color: #1f2d3d !important;
-    &:hover {
-        background-color: #001528 !important;
-    }
-}
-.el-menu--collapse .el-menu .el-submenu {
-    min-width: 180px !important;
 }
 </style>
 

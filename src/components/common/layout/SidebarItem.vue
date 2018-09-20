@@ -6,14 +6,14 @@
                 <span v-if="onlyOneChild.meta && onlyOneChild.meta.title" slot="title">{{onlyOneChild.meta.title}}</span>
             </el-menu-item>
         </router-link>
-        <el-submenu v-else :index="item.name||item.path">
+        <el-submenu :show-timeout="200" v-else :index="item.name||item.path">
             <template slot="title">
                 <FontIcon v-if="item.meta && item.meta.icon" :icon="item.meta.icon"/>
                 <span v-if="item.meta && item.meta.title" slot="title">{{item.meta.title}}</span>
             </template>
             <template v-for="child in item.children" v-if="!child.hidden">
                 <SidebarItem :is-nest="true" class="nest-menu" v-if="child.children&&child.children.length>0" :item="child" :key="child.path" :base-path="resolvePath(child.path)"></SidebarItem>
-                <router-link v-else :to="resolvePath(child.path)" :key="child.name">
+                <router-link :to="resolvePath(child.path)" :key="child.name">
                     <el-menu-item :index="resolvePath(child.path)">
                         <FontIcon v-if="child.meta && child.meta.icon" :icon="child.meta.icon"/>
                         <span v-if="child.meta&&child.meta.title" slot="title">{{child.meta.title}}</span>
@@ -28,9 +28,10 @@ import path from 'path';
 import Vue from 'vue';
 import FontIcon from '~comp/common/FontIcon';
 import SidebarItem from './SidebarItem';
-import { MenuItem, Submenu } from 'element-ui';
+import { MenuItem, Submenu, Tooltip } from 'element-ui';
 Vue.use(MenuItem);
 Vue.use(Submenu);
+Vue.use(Tooltip);
 export default {
     name: 'SidebarItem',
     props: {

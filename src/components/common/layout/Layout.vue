@@ -1,31 +1,48 @@
 <template>
     <div data-layout-box>
-        <Sidebar class="sidebar-container"></Sidebar>
+        <div :class="{'is-collapse':isCollapse}">
+            <Sidebar class="sidebar-container"></Sidebar>
+        </div>
         <div class="main-container">
+            <Navbar></Navbar>
+            <TagsView></TagsView>
         </div>
     </div>
 </template>
 <script>
 import Sidebar from './Sidebar';
+import Navbar from './Navbar';
+import TagsView from './TagsView';
+import { mapGetters } from 'vuex';
 export default {
     components: {
-        Sidebar
+        Sidebar,
+        Navbar,
+        TagsView
+    },
+    computed: {
+        ...mapGetters([
+            'sidebar'
+        ]),
+        isCollapse() {
+            return !this.sidebar.opened;
+        }
     }
 }
 </script>
 <style lang="sass">
 div[data-layout-box] {
-    display: fixe;
+    display: flex;
     .sidebar-container {
-        transition: width 0.28s;
-        width: 200px !important;
+        transition: width 0.5s;
+        width: 210px;
         height: 100%;
         font-size: 0px;
-        top: 0;
-        bottom: 0;
-        left: 0;
         z-index: 1001;
         overflow: hidden;
+    }
+    .is-collapse {
+        .sidebar-container{width: 45px;}
     }
     .main-container{
         min-height: 100%;

@@ -90,6 +90,7 @@
     "mockjs": "^1.0.1-beta3",
     "nprogress": "^0.2.0",
     "open-browser-webpack-plugin": "0.0.5",
+    "screenfull": "^3.3.2",
     "webpack-cli": "^3.0.7",
     "webpack-dev-server": "^2.11.2"
   },
