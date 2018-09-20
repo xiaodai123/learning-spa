@@ -177,17 +177,18 @@ const baseConfig = {
             // chunks: ['vendor'],
             minChunks: Infinity// 可写可不写
         }),
-        new webpack.ProvidePlugin({
-            $: 'jquery',
-            jQuery: 'jquery'
-        }),
+        // 暂不使用jquery
+        // new webpack.ProvidePlugin({
+        //     $: 'jquery',
+        //     jQuery: 'jquery'
+        // }),
         // 复制文件
-        new CopyWebpackPlugin([
-            {
-                from: 'src/lib',
-                to: 'lib'
-            }
-        ]),
+        // new CopyWebpackPlugin([
+        //     {
+        //         from: 'src/lib',
+        //         to: 'lib'
+        //     }
+        // ]),
         // 复制文件
         new CopyWebpackPlugin([
             {

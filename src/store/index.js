@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import auth from './modules/auth';
 import publics from './modules/publics';
+import tagsView from './modules/tagsView';
 import permission from './modules/permission';
 import getters from './getters';
 
@@ -15,7 +16,8 @@ const store = new Vuex.Store({
     modules: {
         publics,
         auth,
-        permission
+        permission,
+        tagsView
     }
 })
 export default store;

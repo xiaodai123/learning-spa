@@ -91,7 +91,7 @@ div[data-navbar-box] {
         .hamburger-container {
             line-height: 53px;
             height: 50px;
-            padding: 0 10px;
+            padding: 0 13px;
             float: left;
             .hamburger {
                 display: inline-block;

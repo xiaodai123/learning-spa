@@ -30,7 +30,6 @@ export default {
                 matched = [{ path: '/index', meta: { title: '首页' } }].concat(matched);
             }
             this.breadcrumbList = matched;
-            console.log(matched)
         }
     },
     watch: {

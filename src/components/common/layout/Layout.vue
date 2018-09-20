@@ -6,6 +6,7 @@
         <div class="main-container">
             <Navbar></Navbar>
             <TagsView></TagsView>
+            <Main></Main>
         </div>
     </div>
 </template>
@@ -13,12 +14,14 @@
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
 import TagsView from './TagsView';
+import Main from './Main';
 import { mapGetters } from 'vuex';
 export default {
     components: {
         Sidebar,
         Navbar,
-        TagsView
+        TagsView,
+        Main
     },
     computed: {
         ...mapGetters([

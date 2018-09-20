@@ -6,7 +6,6 @@ const routes = [
         redirect: '/test1/index',
         // alwaysShow: true, // will always show the root menu
         meta: {
-            // title: 'testComp',
             roles: ['admin', 'editor'], // you can set roles in root nav
             icon: 'shouyeyong',
             title: '测试页1'
