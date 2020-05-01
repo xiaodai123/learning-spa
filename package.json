@@ -46,7 +46,7 @@
     "html-webpack-include-assets-plugin": "^1.0.4",
     "html-webpack-plugin": "^2.26.0",
     "inline-manifest-webpack-plugin": "^3.0.1",
-    "jquery": "^3.3.1",
+    "jquery": "^3.5.0",
     "json-loader": "^0.5.7",
     "json5-loader": "^1.0.1",
     "node-sass": "^4.9.0",
@@ -79,7 +79,8 @@
     "webpack-bundle-analyzer": "^2.13.1",
     "webpack-md5-hash": "0.0.6",
     "webpack-merge": "^4.1.3",
-    "webpack-split-hash": "0.0.1"
+    "webpack-split-hash": "0.0.1",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "babel-plugin-transform-runtime": "^6.23.0",
@@ -96,8 +97,11 @@
     "dev-node": "node build/dev.js",
     "prod-build": "cross-env NODE_ENV=production webpack --colors  --progress --hide-modules --watch --config build/webpack.prod.config.js",
     "prod-node": "node build/prod.js",
-    "pre": "webpack --config build/dll.config.js"
+    "pre": "webpack --config build/dll.config.js",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "author": "dai-zh",
-  "license": "ISC"
+  "license": "ISC",
+  "snyk": true
 }
