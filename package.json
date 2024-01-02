@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "autoprefixer": "^6.6.1",
-    "axios": "^0.16.2",
+    "axios": "^0.21.1",
     "babel-core": "^6.26.3",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
     "babel-loader": "^7.1.4",
